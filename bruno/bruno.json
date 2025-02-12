@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "seb-55-hoot",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

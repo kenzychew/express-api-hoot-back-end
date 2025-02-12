@@ -1,0 +1,18 @@
+meta {
+  name: Create Hoot
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/hoots
+  body: json
+  auth: none
+}
+
+body:json {
+  { "title": " Learn JWT", 
+    "text": "This is so hard", 
+    "category": "tech"
+  }
+}
