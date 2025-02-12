@@ -3,28 +3,28 @@ const router = express.Router();
 const Hoot = require("../models/hoot.js");
 const verifyToken = require("../middleware/verify-token.js");
 
-router.post("/", verifyToken, async (req, res) => {
-  //? req.user comes from verifyToken
-  req.body.author = req.user._id; //* getUser(req)
-  //   const hoot = await Hoot.create(req.body);
-  //   hoot._doc.author = req.user;
-  let tmp = await Hoot.create(req.body);
-  const hoot = Hoot.findById(tmp._id).populate("author");
+const isLowerCase = (str) => str === str.toLowerCase();
 
-  //? hoot = { title: "tt", catgeory: "News", author: "SSS"}
-  res.status(201).json(hoot);
+router.post("/", verifyToken, async (req, res) => {
+  try {
+    if (isLowerCase(req.body.title[0])) {
+      // res.send(400).json({ err: "1st letter in title needs to upper case" });
+      // return;
+      throw new Error("1st letter in title needs to upper case");
+    }
+    //? req.user comes from verifyToken
+    req.body.author = req.user._id; //* getUser(req)
+    const hoot = await Hoot.create(req.body);
+    hoot._doc.author = req.user; //* partial populate
+
+    // let tmp = await Hoot.create(req.body);
+    // const hoot = Hoot.findById(tmp._id).populate("author");
+
+    //? hoot = { title: "tt", catgeory: "News", author: "SSS"}
+    res.status(201).json(hoot);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
 });
 
 module.exports = router;
-
-// {
-//   "title": "Learn JWT",
-//   "text": "Having problems",
-//   "category": "Sports",
-//   "author": "67ac117d8319363f21d29af3",
-//   "_id": "67ac33d80f79290345b332ad",
-//   "comments": [],
-//   "createdAt": "2025-02-12T05:38:32.396Z",
-//   "updatedAt": "2025-02-12T05:38:32.396Z",
-//   "__v": 0
-// }
