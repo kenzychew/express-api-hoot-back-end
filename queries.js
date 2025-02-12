@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const Hoot = require("./models/hoot");
 const bcrypt = require("bcrypt");
 
 const connect = async () => {
@@ -24,9 +25,10 @@ const connect = async () => {
 };
 
 const createUsers = async () => {
+  const saltRounds = 10;
   const users = await User.create([
-    { username: "sss", password: "sss" },
-    { username: "kkk", password: "kkk" },
+    { username: "sss", hashPassword: bcrypt.hashSync("sss", saltRounds) },
+    { username: "kkk", hashPassword: bcrypt.hashSync("kkk", saltRounds) },
   ]);
   console.log(users);
 };
@@ -35,8 +37,8 @@ const createHoots = async () => {
   await Hoot.deleteMany({});
   const author = "67ac11ab9b40961dbd03b48b";
   const hoots = await Hoot.create([
-    { username: "sss", password: "sss" },
-    { username: "kkk", password: "kkk" },
+    { title: "sss", text: "sss", category: "News", author },
+    { title: "kkk", text: "kkk", category: "News", author },
   ]);
   console.log(hoots);
 };
@@ -44,7 +46,7 @@ const createHoots = async () => {
 const runQueries = async () => {
   console.log("Queries running.");
   // The functions calls to run queries in our db will go here as we write them.
-  await createUsers();
+  await createHoots();
 };
 
 connect();
