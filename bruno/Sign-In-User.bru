@@ -1,0 +1,35 @@
+meta {
+  name: Sign-In-User
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/auth/sign-in
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJuYW1lIjoic2ltb24iLCJfaWQiOiI2N2FjMTFhYjliNDA5NjFkYmQwM2I0OGIifSwiaWF0IjoxNzM5MzI5OTYzLCJleHAiOjE3MzkzMzM1NjN9.ZhT7JJbtjWCmFMhDXmKHdXHBcldBPxl90pISkRRE4K4
+}
+
+body:json {
+  {
+      "username": "simon",
+      "password": "123"
+  }
+  
+}
+
+tests {
+  test("should be able to login", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+   
+  test("should receive the token", function() {
+    const data = res.getBody();
+    expect(data.token).to.be.a('string');
+  });
+}

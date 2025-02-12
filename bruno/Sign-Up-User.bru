@@ -1,0 +1,23 @@
+meta {
+  name: Sign-Up-User
+  type: http
+  seq: 3
+}
+
+post {
+  url: {BACKEND_URL}/auth/sign-up
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJuYW1lIjoic2ltb24iLCJfaWQiOiI2N2FjMTFhYjliNDA5NjFkYmQwM2I0OGIifSwiaWF0IjoxNzM5MzI5OTYzLCJleHAiOjE3MzkzMzM1NjN9.ZhT7JJbtjWCmFMhDXmKHdXHBcldBPxl90pISkRRE4K4
+}
+
+body:json {
+  {
+      "username": "simon",
+      "password": "123"
+  }
+  
+}

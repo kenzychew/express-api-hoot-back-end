@@ -1,0 +1,25 @@
+meta {
+  name: Create-Hoot
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/hoots
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJuYW1lIjoic2ltb24iLCJfaWQiOiI2N2FjMTFhYjliNDA5NjFkYmQwM2I0OGIifSwiaWF0IjoxNzM5MzM4OTEyfQ.TvPsLgpOUSzQstckJexD6RZxbN5whUXHn2ldS0mi3ss
+}
+
+body:json {
+  {
+      "title": "Learn JWT",
+    "text": "Having problems",
+    "category": "tech",
+    "author": "???"
+  }
+  
+}
