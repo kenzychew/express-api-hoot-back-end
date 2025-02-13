@@ -20,13 +20,15 @@ router.post("/", verifyToken, async (req, res) => {
       throw new Error("1st letter in title needs to upper case");
     }
     //? req.user comes from verifyToken
-    req.body.author = req.user._id; //* getUser(req)
-    const hoot = await Hoot.create(req.body);
-    hoot._doc.author = req.user; //* partial populate
+    // req.body.author = req.user._id; //* getUser(req)
+    // const hoot = await Hoot.create(req.body);
+    // hoot._doc.author = req.user; //* partial populate
 
     // let tmp = await Hoot.create(req.body);
     // const hoot = await Hoot.findById(tmp._id).populate("author");
-
+    req.body.author = req.user._id;
+    // Create and populate the hoot in one go
+    const hoot = await (await Hoot.create(req.body)).populate("author");
     //? hoot = { title: "tt", catgeory: "News", author: "SSS"}
     res.status(201).json({ hoot });
   } catch (err) {
