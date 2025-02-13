@@ -40,7 +40,7 @@ router.get("/", verifyToken, async (req, res) => {
   try {
     const hoots = await Hoot.find({})
       .populate("author")
-      .sort({ createdAt: "asc" });
+      .sort({ createdAt: "desc" });
     res.json({ hoots }); //? res.json(hoots)
   } catch (err) {
     res.status(500).json({ err: err.message });
