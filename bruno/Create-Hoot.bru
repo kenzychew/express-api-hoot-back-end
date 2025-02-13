@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/hoots
+  url: {{HOST}}/hoots
   body: json
   auth: inherit
 }
@@ -14,6 +14,6 @@ body:json {
   {
     "title": "Learn JWT",
     "text": "Having problems",
-    "category": "Sports",
+    "category": "Sports"
   }
 }
