@@ -1,0 +1,23 @@
+meta {
+  name: Update-Hoot
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{HOST}}/hoots/:hootId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  hootId: 67ac403767af641a1cfbd4cb
+}
+
+body:json {
+  {
+    "title": "Learn JWT",
+    "text": "No more problems",
+    "category": "Sports"
+  }
+}

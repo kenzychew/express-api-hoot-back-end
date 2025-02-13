@@ -40,11 +40,58 @@ router.get("/", verifyToken, async (req, res) => {
 
 router.get("/:hootId", verifyToken, async (req, res) => {
   try {
-    const hoot = await Hoot.findById(req.params.hootId).populate("author");
-    if (!hoot) {
-      throw new Error("Hoot not found");
+    const { hootId } = req.params;
+    const hoot = await Hoot.findById(hootId).populate("author");
+
+    if (hoot === null) {
+      return res.status(404).json({ err: "Not found" });
     }
-    res.status(200).json(hoot);
+
+    res.json({ hoot });
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+});
+
+router.put("/:hootId", verifyToken, async (req, res) => {
+  try {
+    const { hootId } = req.params;
+    const hoot = await Hoot.findById(hootId);
+
+    if (hoot === null) {
+      return res.status(404).json({ err: "Not found" });
+    }
+
+    const isNotSameAuthor = !hoot.author.equals(req.user._id);
+    if (isNotSameAuthor) {
+      return res.status(403).json({ err: "You cannot do this" });
+    }
+
+    const updatedHoot = await Hoot.findByIdAndUpdate(hootId, req.body, {
+      new: true,
+    });
+    updatedHoot._doc.author = req.user;
+    res.json({ hoot: updatedHoot });
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+});
+
+router.delete("/:hootId", async (req, res) => {
+  try {
+    const { hootId } = req.params;
+    const hoot = await Hoot.findById(hootId);
+
+    if (hoot === null) {
+      return res.status(404).json({ err: "Not found" });
+    }
+
+    if (!hoot.author.equals(req.user._id)) {
+      return res.status(403).send("You're not allowed to do that!");
+    }
+
+    const deletedHoot = await Hoot.findByIdAndDelete(hootId);
+    res.json({ hoot: deletedHoot });
   } catch (err) {
     res.status(500).json({ err: err.message });
   }

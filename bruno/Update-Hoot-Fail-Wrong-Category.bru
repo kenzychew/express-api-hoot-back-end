@@ -1,0 +1,23 @@
+meta {
+  name: Update-Hoot-Fail-Wrong-Category
+  type: http
+  seq: 11
+}
+
+put {
+  url: {{HOST}}/hoots/:hootId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  hootId: 67ac403767af641a1cfbd4cb
+}
+
+body:json {
+  {
+    "title": "Learn Python",
+    "text": "New thing",
+    "category": "what"
+  }
+}
