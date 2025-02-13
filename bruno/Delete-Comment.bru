@@ -1,0 +1,22 @@
+meta {
+  name: Delete-Comment
+  type: http
+  seq: 14
+}
+
+delete {
+  url: {{HOST}}/hoots/:hootId/comments/:commentId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  commentId: 67ac11ab9b40961dbd03b48b
+  hootId: 67ac403767af641a1cfbd4ca
+}
+
+body:json {
+  {
+    "text": "doing embededded"
+  }
+}

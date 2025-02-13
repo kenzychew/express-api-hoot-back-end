@@ -1,0 +1,22 @@
+meta {
+  name: Update-Comment
+  type: http
+  seq: 15
+}
+
+put {
+  url: {{HOST}}/hoots/:hootId/comments/:commentId
+  body: json
+  auth: inherit
+}
+
+params:path {
+  commentId: 67ad6179d99e94ee0ba74c9b
+  hootId: 67ac403767af641a1cfbd4ca
+}
+
+body:json {
+  {
+    "text": "But that's just a comment"
+  }
+}
